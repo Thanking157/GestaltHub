@@ -37,24 +37,15 @@ GestaltHub 不保證所有 Key 在所有裝置或系統版本上都能正常運�
 ## 鳴謝
 
 ### 特別感謝
-
 - [forcequitOS / worse_query](https://github.com/forcequitOS/worse_query)
-- [thanking157 / GestaltHub](https://github.com/Thanking157/GestaltHub)
-
 ### 感謝
-
 - [jailbreakdotparty / Erosion](https://github.com/jailbreakdotparty/Erosion)
 - [leminlimez / Nugget](https://github.com/leminlimez/Nugget)
 - [huami1314 / GestaltX](https://github.com/huami1314/GestaltX)
-
 App 內也保留完整鳴謝連結。
 
 ## 授權
-
 GestaltHub 以 **GNU General Public License v3.0 (GPL-3.0)** 發布。
-
 請參閱 repository 根目錄的 LICENSE。第三方程式碼或衍生內容仍應保留其原作者、版權聲明與授權條款。
-
 ## 開發者
-
 Copyright (C) 2026 thanking157.
