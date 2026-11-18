@@ -1,47 +1,70 @@
-# GestaltHub v0.1 Feature Database
+# GestaltHub v0.1 Feature Database 規格
 
-## Purpose
+## 這份文件是做什麼的？
 
-The Feature Database is a versioned, provenance-aware catalog of feature keys and known behavior. It is a data contract, not copied project data. Entries are authored from original observations, public documentation, and attributed research notes.
+Feature Database 是 GestaltHub 的「功能知識庫」。它記錄某個 feature 是什麼、在哪些環境被觀察到、可信度如何，以及目前允許做什麼。
 
-## Feature definition
+它不是把其他專案的資料整包搬過來，而是 GestaltHub 自己維護、可以追溯來源的資料契約。
 
-Each entry contains:
+## 每筆 Feature 要記錄什麼？
 
-- id: stable GestaltHub identifier
-- key: platform-facing key or abstract key family
-- displayName and summary
-- valueType: boolean, integer, string, array, dictionary, or opaque
-- allowed values or validation constraints when known
-- platform scope and observed OS/build range
-- device constraints
-- compatibility policy: supported, unsupported, conditional, or unknown
-- risk level: informational, low, medium, high, or critical
-- write policy: read-only, planned-only, backend-dependent, or unavailable
-- provenance: source type, reference, date, and confidence
-- notes and expert-mode requirement
+- id：GestaltHub 內部固定識別碼
+- key：平台 key 或抽象 key family
+- displayName、summary：給 UI 顯示的名稱與說明
+- valueType：boolean、integer、string、array、dictionary 或 opaque
+- allowedValues 或驗證限制（若已知）
+- 支援的平台、OS 與 build 範圍
+- 裝置限制條件
+- compatibilityPolicy：supported、conditional、unsupported 或 unknown
+- riskLevel：informational、low、medium、high 或 critical
+- writePolicy：readOnly、plannedOnly、backendDependent 或 unavailable
+- provenance：資料來源、參考連結、日期與可信度
+- 備註，以及是否需要 Expert Mode
 
-Confidence is observed, documented, inferred, or unknown. The UI shows provenance and confidence next to every result. Low-confidence data is never presented as a guarantee.
+## 可信度
 
-## Storage and versioning
+每筆資料的可信度分為：
 
-v0.1 uses a bundled seed dataset plus a local schema version. The format must support additive migrations, disabling an entry without deleting history, future hash-verified imports, and preserving source/confidence.
+- observed：在指定裝置/build 實際觀察到
+- documented：有公開官方文件支持
+- inferred：由多筆觀察推論
+- unknown：目前證據不足
 
-Suggested paths: Resources/FeatureDatabase/seed.json and Resources/FeatureDatabase/schema.json.
+UI 必須顯示來源與可信度。低可信度資料不能被呈現成保證。
 
-The seed contains only GestaltHub-authored records and references. It does not contain copied source code or third-party UI.
+## 儲存與版本
 
-## Queries
+v0.1 使用內建 seed dataset 加上本機 schema version。格式要能支援：
 
-Support lookup by stable id and key, filtering by platform/device/OS, full-text search, and provenance retrieval. Queries return a snapshot so history can reproduce an evaluation.
+- 增加欄位的 migration
+- 停用資料但保留舊 History
+- 未來匯入 hash 驗證過的資料集
+- 保留原始來源與可信度
 
-## Example
+建議路徑：
+
+- Resources/FeatureDatabase/seed.json
+- Resources/FeatureDatabase/schema.json
+
+seed 只能放 GestaltHub 自己撰寫的資料與引用，不放第三方程式碼或 UI。
+
+## 查詢需求
+
+至少支援：
+
+- 依 id 或 key 查詢
+- 依平台、裝置、OS/build 篩選
+- 文字搜尋
+- 取得 provenance
+- 回傳包含資料庫版本的快照，讓 History 能重現當時的判斷
+
+## 範例資料
 
     {
       "id": "example.feature",
       "key": "ExampleKey",
-      "displayName": "Example feature",
-      "summary": "Illustrative record only.",
+      "displayName": "範例功能",
+      "summary": "僅供格式展示。",
       "valueType": "boolean",
       "platformScope": ["iOS", "iPadOS"],
       "compatibilityPolicy": "unknown",
@@ -54,4 +77,4 @@ Support lookup by stable id and key, filtering by platform/device/OS, full-text 
       }
     }
 
-This is intentionally non-operational and is not a claim about a real platform feature.
+這只是格式範例，不代表任何真實平台功能。
