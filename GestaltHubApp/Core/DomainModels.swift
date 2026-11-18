@@ -1,6 +1,6 @@
 import Foundation
 
-enum Platform: String, Codable, Sendable {
+enum Platform: String, Codable, Hashable, Sendable {
     case iOS
     case iPadOS
 }
